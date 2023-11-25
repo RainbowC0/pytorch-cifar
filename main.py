@@ -8,6 +8,7 @@ import os
 import argparse
 
 from models import *
+from time import time
 # from utils import progress_bar
 
 print(os.getcwd())

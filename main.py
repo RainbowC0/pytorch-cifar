@@ -61,7 +61,7 @@ classes = ('plane', 'car', 'bird', 'cat', 'deer',
 # Model
 print('==> Building model..')
 # net = VGG('VGG19')
-# net = ResNet18()
+net = ResNet18()
 # net = PreActResNet18()
 # net = GoogLeNet()
 # net = DenseNet121()
@@ -74,11 +74,11 @@ print('==> Building model..')
 # net = ShuffleNetV2(1)
 # net = EfficientNetB0()
 # net = RegNetX_200MF()
-net = SimpleDLA()
+# net = SimpleDLA()
 net = net.to(device)
-net_name = 'DLA'
+net_name = 'ResNet18'
 if device == 'cuda':
-    from torch.backends.cudnn import cudnn
+    from torch.backends import cudnn
     net = torch.nn.DataParallel(net)
     cudnn.benchmark = True
 
@@ -181,11 +181,11 @@ def save_data():
     if not os.path.isdir('fig'):
         os.mkdir('fig')
     with open(f'./fig/{net_name}_acc.csv', 'w') as f:
-        for i in len(keep_epoch):
+        for i in range(len(keep_epoch)):
             f.write('%d,%f,%f\n'
                     % (keep_epoch[i], keep_test_acc[i], keep_train_acc[i]))
     with open(f'./fig/{net_name}_loss.csv', 'w') as f:
-        for i in len(keep_epoch):
+        for i in range(len(keep_epoch)):
             f.write('%d,%f,%f\n'
                     % (keep_epoch[i], keep_test_loss[i], keep_train_loss[i]))
 
